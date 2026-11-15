@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080B4F">
+  <title>VISION LOCK — Astrolympics</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Vision Lock home"><span class="brand-mark">✦</span> ASTROLYMPICS <i>/ VISION LOCK</i></a>
+      <span class="status"><span class="dot"></span> LOCAL SESSION STORAGE</span>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">COGNITIVE &amp; SENSORY PERFORMANCE // MODULE 02</p>
+      <h1>VISION <span>LOCK</span></h1>
+      <p class="intro">Calibrate your galaxy view. Find the point where the stars snap into focus, then log your result to track changes across weekly sessions.</p>
+    </section>
+
+    <section class="panel setup" id="setupPanel">
+      <div class="panel-head"><span class="step">01</span><div><h2>CREW IDENTIFICATION</h2><p>Use the same callsign each week to build your personal record.</p></div></div>
+      <label for="callsign">ASTRONAUT CALLSIGN</label>
+      <div class="identity-row">
+        <input id="callsign" maxlength="24" placeholder="e.g. ORION-01" autocomplete="nickname">
+        <button id="startBtn" class="primary">BEGIN CALIBRATION <span>→</span></button>
+      </div>
+      <p class="micro">Your results are saved in this browser only. No account or server upload.</p>
+    </section>
+
+    <section class="game-layout hidden" id="gamePanel">
+      <div class="panel game-panel">
+        <div class="panel-head"><span class="step">02</span><div><h2>GALAXY FOCUS CHALLENGE</h2><p>Adjust the target until the galaxy looks as sharp as possible.</p></div></div>
+        <div class="optics">
+          <div class="optic-label"><span>+10 D CONVEX LENS</span><span>MOVE TARGET ↔</span></div>
+          <div class="scene" id="scene">
+            <div class="beam"></div>
+            <div class="lens"><span>+10D</span></div>
+            <div class="target" id="target">
+              <div class="galaxy" id="galaxy">
+                <span class="core"></span><span class="arm a"></span><span class="arm b"></span>
+                <span class="star s1"></span><span class="star s2"></span><span class="star s3"></span>
+                <span class="star s4"></span><span class="star s5"></span>
+              </div>
+            </div>
+            <div class="scale"><span>−5 cm</span><span>REFERENCE</span><span>+5 cm</span></div>
+          </div>
+          <div class="focus-readout"><span>TARGET OFFSET</span><strong id="offsetReadout">0.0 <small>cm</small></strong><span id="focusStatus">FIND THE SHARPEST IMAGE</span></div>
+          <input id="distanceSlider" class="range" type="range" min="-5" max="5" step="0.1" value="0" aria-label="Move target position">
+          <div class="controls">
+            <button class="nudge" data-step="-0.5" aria-label="Move target closer">− 0.5 cm</button>
+            <button class="nudge" data-step="-0.1" aria-label="Move target slightly closer">− 0.1</button>
+            <button class="nudge" data-step="0.1" aria-label="Move target slightly farther">+ 0.1</button>
+            <button class="nudge" data-step="0.5" aria-label="Move target farther">+ 0.5 cm</button>
+          </div>
+          <div class="action-row">
+            <button id="resetBtn" class="secondary">RESET POSITION</button>
+            <button id="recordBtn" class="primary">LOCK IN FOCUS <span>→</span></button>
+          </div>
+          <p class="micro instruction">Tip: use the slider or fine controls. Compare the galaxy's core and spiral arms; lock in when the details appear clearest.</p>
+        </div>
+      </div>
+
+      <aside class="side-stack">
+        <div class="panel protocol">
+          <div class="panel-head"><span class="step">i</span><div><h2>MISSION PROTOCOL</h2></div></div>
+          <ol>
+            <li>Look through the simulated <b>+10 D convex lens</b>.</li>
+            <li>Move the galaxy target nearer or farther.</li>
+            <li>Stop when the image appears sharpest.</li>
+            <li>Lock the position to save your session.</li>
+          </ol>
+          <div class="conversion"><strong>1 cm ≈ 1 D</strong><span>Approximate project conversion</span></div>
+          <p class="micro">Keep viewing conditions and procedure consistent between sessions.</p>
+        </div>
+        <div class="panel history-mini">
+          <div class="panel-head"><span class="step">03</span><div><h2>WEEKLY LOG</h2><p id="historyCount">No sessions recorded</p></div></div>
+          <div id="miniHistory" class="mini-history"><p class="empty">Your recorded sessions will appear here.</p></div>
+          <button id="historyBtn" class="text-btn">VIEW FULL HISTORY ↗</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel result hidden" id="resultPanel">
+      <div class="panel-head"><span class="step">04</span><div><h2>CALIBRATION RECORDED</h2><p>Your session has been saved to this browser.</p></div></div>
+      <div class="result-grid">
+        <div><span class="metric-label">TARGET DISPLACEMENT</span><strong id="resultOffset">0.0 cm</strong></div>
+        <div><span class="metric-label">APPROX. FOCUS DIFFERENCE</span><strong id="resultDiopter">0.0 D</strong></div>
+        <div><span class="metric-label">DIRECTION</span><strong id="resultDirection">REFERENCE</strong></div>
+      </div>
+      <p class="notice"><b>Important:</b> This is an experimental game-based measurement, not a clinical refraction test or diagnosis. The sign and interpretation of the displacement must be validated against the exact optical setup by an eye-care professional. Do not use this result to prescribe or change glasses.</p>
+      <div class="action-row">
+        <button id="againBtn" class="secondary">REPEAT SESSION</button>
+        <button id="historyBtn2" class="primary">OPEN WEEKLY HISTORY →</button>
+      </div>
+    </section>
+
+    <section class="panel history-panel hidden" id="historyPanel">
+      <div class="panel-head"><span class="step">05</span><div><h2>PERSONAL VISION TIMELINE</h2><p>Saved locally for this callsign in this browser.</p></div></div>
+      <div class="chart-wrap"><canvas id="historyChart" width="900" height="260" aria-label="Chart of focus difference over time"></canvas></div>
+      <div class="table-wrap"><table><thead><tr><th>DATE</th><th>CALLSIGN</th><th>OFFSET</th><th>EST. D</th><th>DIRECTION</th></tr></thead><tbody id="historyRows"></tbody></table></div>
+      <div class="action-row">
+        <button id="exportBtn" class="secondary">EXPORT CSV ↓</button>
+        <button id="clearBtn" class="danger">CLEAR THIS CALLSIGN'S DATA</button>
+      </div>
+      <p class="micro">Data is stored in localStorage on this device/browser. Clearing browser site data or using another device/browser may remove or hide this history. Export CSV regularly if you need a backup.</p>
+    </section>
+
+    <footer><span>SPACE RACE // ASTROLYMPICS</span><span>VISION MODULE · PROTOTYPE BUILD</span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
